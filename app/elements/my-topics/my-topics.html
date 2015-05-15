@@ -1,0 +1,52 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="my-topics" attributes="">
+  <link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+  <template>
+    <h3>my-topics start here ------</h3>
+    <core-ajax id="ajax"
+      auto
+      url="../../api/posts.json"
+      on-core-response="{{postsLoaded}}"
+      handleAs="json">
+    </core-ajax>
+    <div layout vertical center>
+      <template repeat="{{post in posts}}">
+        <post-card
+          favorite="{{post.favorite}}"
+          on-favorite-tap="{{handleFavorite}}"
+          hidden?="{{show == 'favorites' && !post.favorite}}">
+          <img src="{{post.avatar}}" width="70" height="70">
+          <h2>{{post.username}}</h2>
+          <p>{{post.text}}</p>
+        </post-card>
+      </template>
+    </div>
+    <h3>my-topics end here ------</h3>
+  </template>
+  <script>
+    Polymer('my-topics',{
+      created: function() {
+      this.posts = [];
+    },
+    postsLoaded: function() {
+      // Make a copy of the loaded data
+      this.posts = this.$.ajax.response.slice(0);
+    },
+    /** 
+     * Update the service with the current favorite value.
+     * (Two-way data binding updates the favorite value 
+     * stored locally.) If this was a real service, this
+     * method would do something useful.
+     * 
+     * @method setFavorite
+     * @param uid {Number} Unique ID for post.
+     * @param isFavorite {Boolean} True if the user marked this post as a favorite.
+     */
+    setFavorite: function(uid, isFavorite) {
+      // no service backend, just log the change
+      console.log('Favorite changed: ' + uid + ", now: " + isFavorite);
+    }
+    });
+  </script>
+</polymer-element>
