@@ -1,4 +1,6 @@
 # yoploymer
+
+# How to generate a prject source tree.
 A test for polymer framework with yoeman generator.
 
 ## pre-requirement
@@ -10,3 +12,8 @@ $ bower install
 
 ## run
 $ grunt serve
+
+
+# How to edit and run this program
+
+## use Google Chrome Dev Editor
